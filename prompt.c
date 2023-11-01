@@ -1,5 +1,6 @@
 #include "shell.h"
 
-void display_prompt(void) {
-    printf("#cisfun$ ");
+void display_prompt(void)
+{
+    printf("#Whrite$ ");
 }
