@@ -23,6 +23,20 @@ int main(void)
             exit(0);
         }
 
+	 char *token = strtok(input, " ");
+        char *args[10]; /* You can adjust the size as needed for your use case */
+
+        int argCount = 0;
+        while (token != NULL)
+        {
+            args[argCount] = token;
+            argCount++;
+            token = strtok(NULL, " ");
+        }
+
+        args[argCount] = NULL; /* Null-terminate the argument list */
+
+
         input[characters - 1] = '\0'; /* Remove the trailing newline character */
 
         pid_t child_pid = fork();
@@ -36,7 +50,7 @@ int main(void)
 
         if (child_pid == 0)
         {
-            // Child process
+            /* Child process */
             char *args[2];
             args[0] = input;
             args[1] = NULL;
