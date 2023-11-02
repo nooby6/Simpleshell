@@ -38,9 +38,10 @@ char *custom_getline(void)
 int main(void)
 {
     char *input;
+    char *args[10]; /* Declare the args array here */
     while (1)
     {
-        printf("$ "); /* Display the shell prompt */
+        printf("/$ "); /* Display the shell prompt */
         input = custom_getline(); /* Read a line of input */
 
         if (input[0] == '\0') /* Check for empty input and ignore it */
