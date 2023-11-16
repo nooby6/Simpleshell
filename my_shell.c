@@ -46,9 +46,7 @@ int main(int argc, char *argv[])
 
             /* Handle non-interactive shell logic */
 
-            pid_t child_pid = fork();
-
-            if (child_pid == -1)
+            if ((child_pid = fork()) == -1)
             {
                 perror("Fork error");
                 free(input);
