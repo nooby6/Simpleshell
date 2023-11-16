@@ -2,5 +2,5 @@
 
 void display_prompt(void)
 {
-    printf("#Whrite$ ");
+    printf("Whrite$ ");
 }

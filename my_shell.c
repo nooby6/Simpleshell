@@ -27,6 +27,10 @@ char *custom_getline(void)
 
 int main(int argc, char *argv[])
 {
+    char *input = NULL;
+    size_t bufsize = 0;
+    ssize_t characters;
+
     if (argc > 1) /* Non-interactive mode */
     {
         FILE *input_file = fopen(argv[1], "r");
@@ -35,10 +39,6 @@ int main(int argc, char *argv[])
             perror("File open error");
             exit(1);
         }
-
-        char *input = NULL;
-        size_t bufsize = 0;
-        ssize_t characters;
 
         while ((characters = getline(&input, &bufsize, input_file)) != -1)
         {
@@ -80,8 +80,7 @@ int main(int argc, char *argv[])
     }
     else /* Interactive mode */
     {
-        char *input;
-	char *args[10];
+        char *args[10];
 
         while (1)
         {
@@ -94,9 +93,9 @@ int main(int argc, char *argv[])
             /* Handle interactive shell logic */
 
             if (strcmp(input, "exit") == 0)
-	    {
+            {
                 free(input);
-		exit(0);
+                exit(0);
             }
             else if (strcmp(input, "env") == 0)
             {
@@ -144,4 +143,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
