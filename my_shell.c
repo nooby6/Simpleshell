@@ -5,8 +5,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#include "my_shell.h"
+
 /* Function to read a line of input using dynamic memory allocation */
-char *custom_getline(void)
+char *read_input(void)
 {
     char *buffer = NULL;
     size_t bufsize = 0;
@@ -24,13 +26,13 @@ char *custom_getline(void)
 
     return buffer;
 }
+void execute_command(char *input) {
+    /* Placeholder for command execution logic */
+    printf("Executing command: %s\n", input);
+}
 
 int main(int argc, char *argv[])
 {
-    char *input = NULL;
-    size_t bufsize = 0;
-    ssize_t characters;
-
     if (argc > 1) /* Non-interactive mode */
     {
         FILE *input_file = fopen(argv[1], "r");
@@ -40,13 +42,19 @@ int main(int argc, char *argv[])
             exit(1);
         }
 
+        char *input = NULL;
+        size_t bufsize = 0;
+        ssize_t characters;
+
         while ((characters = getline(&input, &bufsize, input_file)) != -1)
         {
             input[characters - 1] = '\0'; /* Remove the trailing newline character */
 
             /* Handle non-interactive shell logic */
 
-            if ((child_pid = fork()) == -1)
+            pid_t child_pid = fork();
+
+            if (child_pid == -1)
             {
                 perror("Fork error");
                 free(input);
@@ -78,7 +86,8 @@ int main(int argc, char *argv[])
     }
     else /* Interactive mode */
     {
-        char *args[10];
+        char *input;
+	char *args[10];
 
         while (1)
         {
@@ -91,9 +100,9 @@ int main(int argc, char *argv[])
             /* Handle interactive shell logic */
 
             if (strcmp(input, "exit") == 0)
-            {
+	    {
                 free(input);
-                exit(0);
+		exit(0);
             }
             else if (strcmp(input, "env") == 0)
             {

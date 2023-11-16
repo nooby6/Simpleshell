@@ -1,6 +1,7 @@
-#include "shell.h"
+#include "my_shell.h"
 
-int main(void) {
+int main(int argc, char *argv[])
+{
     char *input;
 
     while (1) {
